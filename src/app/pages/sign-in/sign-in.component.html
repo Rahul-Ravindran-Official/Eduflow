@@ -1,0 +1,45 @@
+<div id="sign-in-popup">
+
+  <mat-card id="sign-in-popup-card">
+    <div id="sign-in-title" class="mat-display-1">Sign in Eduflow</div>
+    <form class="example-form">
+      <mat-form-field class="match-parent-width">
+        <input
+          ngModel
+          email
+          #email="ngModel"
+          matInput
+          placeholder="Email"
+          value=""
+          required
+          autofocus
+          name="emailField"
+        >
+        <mat-error *ngIf="email.invalid && email.errors.required">
+          Enter your your valid email address.
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field class="match-parent-width">
+        <input
+          ngModel
+          #password="ngModel"
+          matInput
+          placeholder="Password"
+          value=""
+          type="password"
+          required
+          name="passwordField"
+        >
+        <mat-error *ngIf="email.invalid && email.errors.required">
+          Enter your your valid email address.
+        </mat-error>
+      </mat-form-field>
+    </form>
+
+    <br>
+    <button (click)="onSignIn()" mat-raised-button color="primary" class="match-parent-width mat-display-3">Sign In</button>
+
+  </mat-card>
+
+</div>

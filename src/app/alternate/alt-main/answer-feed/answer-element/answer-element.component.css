@@ -1,0 +1,36 @@
+.answer-card {
+  max-width: 600px;
+  margin-top: 10px;
+}
+
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+
+.make-inline { float:left; }
+
+.clearBoth { clear:both; }
+
+.full-width {
+  width: 100%;
+}
+
+/* Report Related CSS */
+
+.report-button{
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: small;
+  float: right;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+.pre-report-button {
+
+}
+
+.post-report-button {
+  color: red;
+}

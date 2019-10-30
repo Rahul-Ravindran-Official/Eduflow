@@ -1,0 +1,54 @@
+<mat-card class="answer-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title style="margin-top: -5px">{{author}}</mat-card-title>
+    <mat-card-subtitle>
+      <app-shiny-text [value]=" trophyCount + ' Trophies'" [fontSize]="'15px'"></app-shiny-text>
+    </mat-card-subtitle>
+
+  </mat-card-header>
+
+  <mat-card-content>
+    <p>
+      {{answer}}
+    </p>
+  </mat-card-content>
+  <mat-divider></mat-divider>
+  <mat-card-actions>
+    <button mat-button (click)="toggleUpvote()">{{upvoteCount}} Upvotes</button>
+    <button mat-button (click)="showAnswerDiscussions()">{{discussionCount}} Discussions</button>
+    <button mat-button (click)="toggleReply()">{{replyValue}}</button>
+    <span style="font-size: small; float: right; margin-top: 10px;">{{lastEdited}}</span>
+    <span (click)="reportToggle()" [className]="reported ? 'post-report-button report-button' : 'pre-report-button report-button'">
+      {{reported ? 'Undo Report Answer' : 'Report Answer'}}
+    </span>
+  </mat-card-actions>
+  <div *ngIf="showDiscussions" style="margin-top: -8px">
+    <div *ngIf="showCommentBox" style="margin-bottom: 50px; margin-left: 10px;">
+      <mat-form-field class="full-width">
+        <textarea [(ngModel)]="commentText" matInput placeholder="Leave a comment"></textarea>
+      </mat-form-field>
+      <button
+        style="float: right"
+        (click)="postDiscussionComment()"
+        mat-flat-button
+        color="primary">
+        Post Comment
+      </button>
+      <div style="float: right; margin-right: 20px; margin-top: -4px;">
+        <div>
+          <mat-form-field class="remove-underline">
+            <mat-label>Show my name as</mat-label>
+            <mat-select (selectionChange)="onSelectionChangedAnonymityLevel($event)" [(ngModel)]="defaultAnonymityScope" class="awesome-select default-padding">
+              <mat-option *ngFor="let option of anonymityScope" [value]="option.id">
+                {{option.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <app-discussion-feed></app-discussion-feed>
+  </div>
+</mat-card>
+

@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+
+.match-parent-width {
+  width: 100%;
+}
+
+*{
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

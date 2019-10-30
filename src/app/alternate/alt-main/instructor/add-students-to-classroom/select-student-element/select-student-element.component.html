@@ -1,0 +1,16 @@
+<mat-list-item  matRipple style="height: 50px; display: flex;">
+
+
+  <mat-checkbox [checked]="isChecked" [(ngModel)]="isChecked" (change)="selectStudent(isChecked)"></mat-checkbox>
+
+  <img
+    src="{{studentProfilePicture}}"
+    style="
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            margin-left: 20px;">
+  <p style="margin-left: 20px;">{{studentName}}</p>
+<!--  <p style="margin-left: 20px;">{{temp}}</p>-->
+<!--  <p style="margin-left: 20px;">IsChecked => {{isChecked}}</p>-->
+</mat-list-item>

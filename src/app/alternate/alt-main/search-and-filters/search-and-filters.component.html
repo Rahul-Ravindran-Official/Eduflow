@@ -1,0 +1,35 @@
+<div id="search-bar" class="match-parent-width-modified-2">
+  <mat-form-field appearance="outline">
+    <mat-icon matPrefix >search</mat-icon>
+    <mat-label>Search Question</mat-label>
+    <input autocomplete="off" matInput placeholder="Search a question, become smarter.">
+  </mat-form-field>
+</div>
+
+<div class="three-elements">
+
+  <div>
+    <mat-form-field class="remove-underline">
+      <mat-select [(ngModel)]="defaultPostType" class="awesome-select default-padding">
+        <mat-option *ngFor="let option of postType" [value]="option.value">
+          {{option.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="left-margin-select">
+    <mat-form-field class="remove-underline">
+      <mat-select [(ngModel)]="defaultSortType" class="awesome-select default-padding">
+        <mat-option *ngFor="let option of sortType" [value]="option.value">
+          {{option.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="left-margin-select AAQ-margin">
+    <button (click)="emitAskAQuestionEvent()" mat-raised-button color="primary">Ask A Question</button>
+  </div>
+
+</div>

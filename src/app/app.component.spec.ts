@@ -22,7 +22,7 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('Angular');
   });
 
-  it('should render title in a h1 tag', () => {
+  it('should render title in a h1 tags', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;

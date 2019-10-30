@@ -1,0 +1,22 @@
+<mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>{{author}}</mat-card-title>
+    <mat-card-subtitle>{{tag}}</mat-card-subtitle>
+    <span style="float: right">Hide Answer</span>
+  </mat-card-header>
+  <mat-card-content>
+    <p>
+      {{question}}
+    </p>
+  </mat-card-content>
+  <mat-divider></mat-divider>
+  <mat-card-actions>
+    <button mat-button (click)="toggleUpvote()">{{upvoteCount}} Upvotes</button>
+    <button *ngIf="showReplyButton" mat-button (click)="onPostEnter()">{{replyCount}} Replies</button>
+    <span style="font-size: small; float: right; margin-top: 10px;">{{lastActive}}</span>
+    <span (click)="reportToggle()" [className]="reported ? 'post-report-button report-button' : 'pre-report-button report-button'">
+      {{reported ? 'Undo Report Post' : 'Report Post'}}
+    </span>
+  </mat-card-actions>
+</mat-card>

@@ -1,0 +1,8 @@
+<div *ngFor="let comment of commentFeedOfAnswer">
+  <mat-divider style="margin-top: -7px"></mat-divider>
+  <app-discussion-element
+    [author]="comment.authorDisplayName"
+    [comment]="comment.comment"
+    [dateTimePosted]="comment.dateTimePosted"
+  ></app-discussion-element>
+</div>

@@ -1,0 +1,11 @@
+.inline-elements{
+  display: flex;
+}
+
+.inline-element-margin-left{
+  margin-left: 50px;
+}
+
+.inline-element-margin-left-2{
+  margin-left: 20px;
+}

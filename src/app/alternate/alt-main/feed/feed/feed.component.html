@@ -1,0 +1,15 @@
+<div *ngFor="let post of posts">
+<app-feed-element
+  [postId]="post.postId"
+  [upvoteCount]="post.upvoteCount"
+  [upvoted]="post.upvoted"
+  [lastActive]="post.lastActive"
+  [replyCount]="post.replyCount"
+  [author]="post.author"
+  [tag]="post.tag"
+  [question]="post.question"
+  [reported]="post.flagged"
+  (enterIntoPostWithPostId)="onPostEnterListener($event)"
+></app-feed-element>
+<br>
+</div>

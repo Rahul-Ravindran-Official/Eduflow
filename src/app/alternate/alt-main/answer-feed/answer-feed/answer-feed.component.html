@@ -1,0 +1,13 @@
+<app-answer-element
+  *ngFor="let answer of answerFeedOfPost"
+  [answer]="answer.answer"
+  [discussionCount]="answer.discussionCount"
+  [lastEdited]="answer.lastEdited"
+  [authorDisplayImage]="answer.authorDisplayImage"
+  [parentPostId]="answer.parentPostId"
+  [upvoted]="answer.upvoted"
+  [upvoteCount]="answer.upvoteCount"
+  [author]="answer.authorDisplayName"
+  [trophyCount]="answer.trophyCount"
+  [reported]="answer.reported">
+</app-answer-element>

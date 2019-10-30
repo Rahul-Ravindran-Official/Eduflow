@@ -1,0 +1,30 @@
+.example-card {
+  max-width: 600px;
+}
+
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+
+.make-inline { float:left; }
+
+.clearBoth { clear:both; }
+
+
+.report-button{
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: small;
+  float: right;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+.pre-report-button {
+
+}
+
+.post-report-button {
+  color: red;
+}

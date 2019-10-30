@@ -1,0 +1,32 @@
+#coloured-box{
+  padding: 10px;
+}
+
+#profile-picture{
+
+}
+
+.rounded-picture {
+  border-radius: 50%;
+  max-height: 80px;
+  max-width: 80px;
+}
+
+#text-1{
+  margin-top: 5px;
+  color: white;
+}
+
+#text-2{
+  margin-top: 5px;
+  color: white;
+}
+
+.mat-list-icon {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+mat-list-item:hover {
+  cursor: pointer;
+  background: rgba(185, 184, 194, 0.48);
+}

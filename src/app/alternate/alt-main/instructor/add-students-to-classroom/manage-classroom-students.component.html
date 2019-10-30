@@ -1,0 +1,70 @@
+<!--<div *ngFor="let e of selectedStudentIdsList" style="display: inline-block"><span>{{e}}</span></div>-->
+
+<div style="display: flex;">
+
+<mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>The Teacher</mat-card-title>
+    <mat-card-subtitle>(noun.) consumes caffeine => teaching machine.</mat-card-subtitle>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+
+  <div id="classes">
+    <mat-list *ngFor="let categoryGroup of categoryGroups">
+      <h3 mat-subheader>{{categoryGroup.categoryGroupName}}</h3>
+      <mat-list-item *ngFor="let singleCategory of categoryGroup.category" (click)="selectCategory(singleCategory.categoryId)" matRipple style="margin-left: 10px;height: 30px; padding: 10px;">
+        <h4 mat-line>{{singleCategory.categoryName}}</h4>
+      </mat-list-item>
+    </mat-list>
+  </div>
+</mat-card>
+
+<mat-card style="width: 600px; margin-left: 30px">
+  <div style="display: flex">
+    <mat-card-header>
+      <mat-card-title>Showing All Students</mat-card-title>
+      <mat-card-subtitle><b>Showing Grade 1</b></mat-card-subtitle>
+    </mat-card-header>
+
+    <button
+      (click)="selectAllStudentsOfCurrentCategoryId()"
+      mat-flat-button
+      color="primary"
+      style="margin-left: 15px; height: 45px; float: right">
+      Select All
+    </button>
+    <button
+      (click)="unselectStudentsOfCurrentGroupId()"
+      autofocus
+      mat-flat-button
+      color="primary"
+      style="margin-left: 15px; height: 45px; float: right">
+      Select None
+    </button>
+    <button
+      (click)="updateSelectedStudents()"
+      autofocus
+      mat-flat-button
+      color="primary"
+      style="margin-left: 15px; height: 45px; float: right">
+      Finalize
+    </button>
+  </div>
+  <mat-divider></mat-divider>
+
+  <div>
+    <mat-list>
+      <app-select-student-element
+        *ngFor="let student of selectableStudentList"
+        [userId]="student.userId"
+        [studentName]="student.fullName"
+        [isChecked]="student.selected"
+        [studentProfilePicture]="student.profilePicture">
+      </app-select-student-element>
+    </mat-list>
+  </div>
+
+</mat-card>
+
+</div>

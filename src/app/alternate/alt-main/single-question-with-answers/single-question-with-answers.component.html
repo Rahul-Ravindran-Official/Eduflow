@@ -1,0 +1,52 @@
+<app-feed-element
+  [postId]="theQuestion.postId"
+  [upvoteCount]="theQuestion.upvoteCount"
+  [upvoted]="theQuestion.upvoted"
+  [lastActive]="theQuestion.lastActive"
+  [author]="theQuestion.author"
+  [tag]="theQuestion.tag"
+  [question]="theQuestion.question"
+  [showReplyButton]="false"
+></app-feed-element>
+
+<mat-card id="post-an-answer" style="max-width: 600px; margin-top: 10px">
+  <div>
+    <span>Post an answer</span>
+    <span style="float: right; cursor: pointer;" (click)="toggleShowAnswerBar()"><mat-icon mat-list-icon>question_answer</mat-icon></span>
+  </div>
+  <div style="margin-top: 20px" *ngIf="showAnswerBar">
+    <div>
+      <div>
+        <mat-form-field >
+          <mat-label>Show my name as</mat-label>
+          <mat-select (selectionChange)="onSelectionChangedAnonymityLevel($event)" [(ngModel)]="defaultAnonymityScope" class="awesome-select default-padding">
+            <mat-option *ngFor="let option of anonymityScope" [value]="option.id">
+              {{option.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <app-ngx-editor
+      [placeholder]="'Answer To Strengthen Your Learning ...'"
+      [spellcheck]="true"
+      [minHeight]="'200px'"
+      [width]="'550px'"
+      [(ngModel)]="htmlContent"
+    ></app-ngx-editor>
+
+    <div class="inline-elements">
+      <button
+        (click)="postAnswer()"
+        class="inline-element-margin-left-2"
+        mat-flat-button
+        color="primary"
+        style="margin-top: 15px">
+        Post as {{getAnonymityScopeNameFromChosenAnonymityScopeId()}}
+      </button>
+    </div>
+  </div>
+</mat-card>
+
+<app-answer-feed></app-answer-feed>

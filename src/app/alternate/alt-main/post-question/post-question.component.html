@@ -1,0 +1,64 @@
+<div>
+
+  <h1 class="mat-h1" style="margin-top: -5px">Post a question</h1>
+
+  <div class="inline-elements">
+    <div>
+      <mat-form-field >
+        <mat-label>Show my name as</mat-label>
+        <mat-select (selectionChange)="onSelectionChangedAnonymityLevel($event)" [(ngModel)]="defaultAnonymityScope" class="awesome-select default-padding">
+          <mat-option *ngFor="let option of anonymityScope" [value]="option.id">
+            {{option.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="inline-element-margin-left">
+      <mat-form-field >
+        <mat-label>Class To Post</mat-label>
+        <mat-select (selectionChange)="onSelectionChangedGroup($event)" [(ngModel)]="defaultGroup" class="awesome-select default-padding">
+          <mat-option *ngFor="let option of classes" [value]="option.id">
+            {{option.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="inline-element-margin-left">
+      <mat-form-field >
+        <mat-label>Question Tag</mat-label>
+        <mat-select (selectionChange)="onTagChangedGroup($event)" [(ngModel)]="selectedTagId" class="awesome-select default-padding">
+          <mat-option *ngFor="let tag of getTagsOfAChosenClass()" [value]="tag.id">
+            {{tag.tagName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <app-ngx-editor
+    [placeholder]="'Ask away ...'"
+    [spellcheck]="true"
+    [minHeight]="'200px'"
+    [width]="'650px'"
+    [(ngModel)]="htmlContent"
+  ></app-ngx-editor>
+
+  <div class="inline-elements">
+    <button
+      (click)="saveDraft()"
+      mat-flat-button
+      color="accent"
+      style="margin-top: 15px">
+      Save Question To Draft
+    </button>
+    <button
+      (click)="postQuestion()"
+      class="inline-element-margin-left-2"
+      mat-flat-button
+      color="primary"
+      style="margin-top: 15px">
+      Post as {{getAnonymityScopeNameFromChosenAnonymityScopeId()}} To {{getClassNameFromChosenClassId()}}
+    </button>
+  </div>
+
+</div>

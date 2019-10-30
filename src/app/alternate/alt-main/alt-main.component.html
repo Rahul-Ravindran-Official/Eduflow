@@ -1,0 +1,65 @@
+<app-sign-in *ngIf="!isSignedIn" (successfullySignedIn)="onSuccessfullySignedIn()"></app-sign-in>
+<mat-sidenav-container *ngIf="isSignedIn" class="example-container" style="height: 720px">
+  <mat-sidenav mode="side" opened>
+    <app-sidebar
+      (WantToCreateANewClass)="createNewClass()"
+      (EnterClass)="enterClass($event)"
+    >
+    </app-sidebar>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar class="toolbar-style">
+      <mat-icon
+        id="back-button"
+        matTooltip="Goto Home Page"
+        (click)="OnPostExitListener()"
+        [style.display]="currentView != 'POSTS' ? 'block' : 'none'"
+        class="example-icon"
+        aria-hidden="false"
+        aria-label="Example user verified icon">
+        arrow_back
+      </mat-icon>
+      <span  style="margin-left: 10px;">Eduflow.io</span>
+
+      <mat-icon
+        [matMenuTriggerFor]="menu"
+        id="intructor-settings"
+        matTooltip="Instructor Settings"
+        (click)="OnPostExitListener()"
+        class="example-icon"
+        aria-hidden="false"
+        style="position: absolute; right: 0; margin-right: 30px; cursor: pointer;">
+        group
+      </mat-icon>
+    </mat-toolbar>
+    <div id="paded-environment" style="padding: 20px;">
+      <div id="posts-view" *ngIf="currentView == 'POSTS'">
+        <app-search-and-filters (askAQuestion)="onWantToQuestion()"></app-search-and-filters>
+        <app-feed
+          (enterIntoPostWithPostId)="onPostEnterListener($event)"
+          [classId]="1"
+        ></app-feed>
+      </div>
+      <div id="single-post-view" *ngIf="currentView == 'SINGLE_POST'">
+        <app-single-question-with-answers [postId]="lastViewedPostId.toString()"></app-single-question-with-answers>
+      </div>
+      <div id="ask-a-question-view" *ngIf="currentView == 'ASK_A_QUESTION'">
+        <app-post-question></app-post-question>
+      </div>
+      <div id="create-new-class-view" *ngIf="currentView == 'CREATE_A_CLASS'">
+        <app-create-classroom (proceedToAddStudentsToNewClassroom)="gotoScreenAddStudentsToClassroom()"></app-create-classroom>
+      </div>
+      <div id="manage-classroom-students-view" *ngIf="currentView == 'MANAGE_CLASSROOM_STUDENTS'">
+        <app-manage-classroom-students (gotoHomePage)="OnGotoAllPosts()"></app-manage-classroom-students>
+      </div>
+    </div>
+
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="gotoManageCurrentChosenClassroom()">Manage MAT 102 Classroom</button>
+  <button mat-menu-item>Manage MAT 102 Instructors</button>
+</mat-menu>
