@@ -31,16 +31,24 @@ import { FeedElementComponent } from './alternate/alt-main/feed/feed-element/fee
 import { PostQuestionComponent } from './alternate/alt-main/post-question/post-question.component';
 import { NgxEditorModule } from 'ngx-editor';
 import { HttpClientModule } from '@angular/common/http';
+// tslint:disable-next-line:max-line-length
 import { SingleQuestionWithAnswersComponent } from './alternate/alt-main/single-question-with-answers/single-question-with-answers.component';
 import { AnswerElementComponent } from './alternate/alt-main/answer-feed/answer-element/answer-element.component';
 import { AnswerFeedComponent } from './alternate/alt-main/answer-feed/answer-feed/answer-feed.component';
 import { ShinyTextComponent } from './utility/shiny-text/shiny-text.component';
 import { DiscussionFeedComponent } from './alternate/alt-main/answer-feed/discussion-feed/discussion-feed/discussion-feed.component';
+// tslint:disable-next-line:max-line-length
 import { DiscussionElementComponent } from './alternate/alt-main/answer-feed/discussion-feed/discussion-element/discussion-element.component';
 import { CreateClassroomComponent } from './alternate/alt-main/instructor/create-classroom/create-classroom.component';
+// tslint:disable-next-line:max-line-length
 import { ManageClassroomStudentsComponent } from './alternate/alt-main/instructor/add-students-to-classroom/manage-classroom-students.component';
-import { SelectStudentElementComponent } from './alternate/alt-main/instructor/add-students-to-classroom/select-student-element/select-student-element.component';
 import {ChosenStudentsService} from './alternate/alt-main/instructor/add-students-to-classroom/chosen-students.service';
+import {FlexLayoutModule} from '@angular/flex-layout';
+// tslint:disable-next-line:max-line-length
+import { ManageClassroomInstructorsComponent } from './alternate/alt-main/instructor/manage-classroom-instructors/manage-classroom-instructors.component';
+import {ChosenUsersService} from './alternate/alt-main/instructor/chosen-users.service';
+// tslint:disable-next-line:max-line-length
+import {SelectUserElementComponent} from './alternate/alt-main/instructor/add-students-to-classroom/select-user-element/select-user-element.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +72,8 @@ import {ChosenStudentsService} from './alternate/alt-main/instructor/add-student
     DiscussionElementComponent,
     CreateClassroomComponent,
     ManageClassroomStudentsComponent,
-    SelectStudentElementComponent,
+    SelectUserElementComponent,
+    ManageClassroomInstructorsComponent,
   ],
   imports: [
     BrowserModule,
@@ -91,9 +100,10 @@ import {ChosenStudentsService} from './alternate/alt-main/instructor/add-student
     MatTooltipModule,
     MatChipsModule,
     MatAutocompleteModule,
-    MatMenuModule
+    MatMenuModule,
+    FlexLayoutModule
   ],
-  providers: [ChosenStudentsService],
+  providers: [ChosenStudentsService, ChosenUsersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

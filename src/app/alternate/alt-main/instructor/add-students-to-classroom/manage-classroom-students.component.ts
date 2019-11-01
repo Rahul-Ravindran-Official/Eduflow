@@ -1,7 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {CategoryGroup, SelectableStudent} from '../../../../Shared/interfaces';
+import {CategoryGroup, SelectableUser} from '../../../../Shared/interfaces';
 import {ChosenStudentsService} from './chosen-students.service';
 import {MatSnackBar} from '@angular/material';
+import {ChosenUsersService} from '../chosen-users.service';
 
 @Component({
   selector: 'app-manage-classroom-students',
@@ -11,13 +12,14 @@ import {MatSnackBar} from '@angular/material';
 export class ManageClassroomStudentsComponent implements OnInit {
   @Input() classroomId: string;
   @Output() gotoHomePage = new EventEmitter();
+  categoryName = 'Category not yet selected';
   allStudentNames: string[];
   currentCategoryId = '-2';
   categoryGroups: CategoryGroup[];
-  selectableStudentList: SelectableStudent[];
+  selectableStudentList: SelectableUser[];
   selectedStudentIdsList: string[];
 
-  constructor(private chosenStudents: ChosenStudentsService, private snackBar: MatSnackBar) { }
+  constructor(private chosenStudents: ChosenUsersService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.categoryGroups = this.getStudentCategories();
@@ -33,6 +35,14 @@ export class ManageClassroomStudentsComponent implements OnInit {
   selectCategory(categoryId: string) {
     this.currentCategoryId = categoryId;
     this.selectableStudentList = this.getStudentsByCategory(categoryId);
+    this.categoryGroups.forEach( categoryGroup => {
+        categoryGroup.category.forEach( singleCategory => {
+          if (singleCategory.categoryId === categoryId) {
+            this.categoryName = 'Showing ' + singleCategory.categoryName;
+            return;
+          }
+        });
+    });
   }
 
   getStudentCategories() {
@@ -111,7 +121,7 @@ export class ManageClassroomStudentsComponent implements OnInit {
     }
 
     // TODO API CALL here and dynamic programming for efficiency. Highly inefficient now.
-    const selectableStudent: SelectableStudent[] = [];
+    const selectableStudent: SelectableUser[] = [];
     selectableStudent[0] = {
           userId: '1',
           fullName: 'Iron Man',
@@ -142,10 +152,10 @@ export class ManageClassroomStudentsComponent implements OnInit {
 
   onInitUpdateExistingStudentsToChosenStudentsService() {
     // This means get all students across all categories
-    const allStudents: SelectableStudent[] = this.getStudentsByCategory('-1');
+    const allStudents: SelectableUser[] = this.getStudentsByCategory('-1');
     for (const student of allStudents) {
       if (student.selected) {
-        this.chosenStudents.addToChosenStudentList(student.userId);
+        this.chosenStudents.addToChosenUserList(student.userId);
       }
     }
   }
@@ -153,29 +163,29 @@ export class ManageClassroomStudentsComponent implements OnInit {
 
 
   selectAllStudentsOfCurrentCategoryId() {
-    const selectableStudent: SelectableStudent[] = this.getStudentsByCategory(this.currentCategoryId);
+    const selectableStudent: SelectableUser[] = this.getStudentsByCategory(this.currentCategoryId);
     if (selectableStudent === undefined) { return; }
     for (const element of selectableStudent) {
-      this.chosenStudents.addToChosenStudentList(element.userId);
+      this.chosenStudents.addToChosenUserList(element.userId);
     }
   }
 
   unselectStudentsOfCurrentGroupId() {
-    const selectableStudent: SelectableStudent[] = this.getStudentsByCategory(this.currentCategoryId);
+    const selectableStudent: SelectableUser[] = this.getStudentsByCategory(this.currentCategoryId);
     if (selectableStudent === undefined) { return; }
     for (const element of selectableStudent) {
-      this.chosenStudents.removeFromChosenStudentList(element.userId);
+      this.chosenStudents.removeFromChosenUserList(element.userId);
     }
   }
 
   updateSelectedStudents() {
-    // todo api call => use selectedStudentIdsList to remove every students connection and update with new list.
+    // todo api call => use selectedUserIdsList to remove every students connection and update with new list.
     this.chosenStudents.clearSlate();
     this.snackBarCreator('Student management updated successfully');
     this.gotoHomePage.emit();
   }
 
-  static makeString(length) {
+  makeString(length) {
     let result           = '';
     const characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     const charactersLength = characters.length;
@@ -185,7 +195,7 @@ export class ManageClassroomStudentsComponent implements OnInit {
     return result;
   }
 
-  static makeId(length) {
+  makeId(length) {
     let result           = '';
     const characters       = '0123456789';
     const charactersLength = characters.length;
@@ -200,5 +210,4 @@ export class ManageClassroomStudentsComponent implements OnInit {
       duration: 1000,
     });
   }
-
 }

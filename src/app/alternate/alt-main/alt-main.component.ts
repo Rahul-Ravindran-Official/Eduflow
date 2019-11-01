@@ -14,6 +14,11 @@ export class AltMainComponent {
   lastViewedPostId: number;
   currentView = 'POSTS';
 
+  screensWhereYouCannotLeaveWithoutConfirmingChanges = [
+    'MANAGE_CLASSROOM_STUDENTS',
+    'MANAGE_CLASSROOM_INSTRUCTORS'
+  ];
+
   constructor(private snackBar: MatSnackBar) {}
 
   onPostEnterListener(postId) {
@@ -62,31 +67,38 @@ export class AltMainComponent {
   }
 
   createNewClass() {
-    if (this.currentView === 'MANAGE_CLASSROOM_STUDENTS') {
-      this.snackBarCreator('Finalize before switching screens.');
-      return;
-    }
+    if (this.canChangeScreen() === false) { return; }
     this.currentView = 'CREATE_A_CLASS';
     this.snackBarCreator('Entering Create New Class');
   }
 
   enterClass(classId: string) {
-    if (this.currentView === 'MANAGE_CLASSROOM_STUDENTS') {
-      this.snackBarCreator('Finalize before switching screens.');
-      return;
-    }
+    if (this.canChangeScreen() === false) { return; }
     this.snackBarCreator('Entering Class ' + classId);
   }
 
   gotoScreenAddStudentsToClassroom() {
+    if (this.canChangeScreen() === false) { return; }
     this.currentView = 'MANAGE_CLASSROOM_STUDENTS';
   }
 
-  gotoManageCurrentChosenClassroom() {
-    if (this.currentView === 'MANAGE_CLASSROOM_STUDENTS') {
-      this.snackBarCreator('Finalize before switching screens.');
-      return;
-    }
+  gotoManageStudentsOfCurrentClassroom() {
+    if (this.canChangeScreen() === false) { return; }
     this.currentView = 'MANAGE_CLASSROOM_STUDENTS';
+  }
+
+  gotoManageInstructorsOfCurrentChosenClassroom() {
+    if (this.canChangeScreen() === false) { return; }
+    this.currentView = 'MANAGE_CLASSROOM_INSTRUCTORS';
+  }
+
+  canChangeScreen() {
+    for (const screen of this.screensWhereYouCannotLeaveWithoutConfirmingChanges) {
+      if (this.currentView === screen) {
+        this.snackBarCreator('Finalize before switching screens.');
+        return false;
+      }
+    }
+    return true;
   }
 }

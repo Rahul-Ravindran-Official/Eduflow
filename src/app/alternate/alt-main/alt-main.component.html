@@ -26,7 +26,6 @@
         [matMenuTriggerFor]="menu"
         id="intructor-settings"
         matTooltip="Instructor Settings"
-        (click)="OnPostExitListener()"
         class="example-icon"
         aria-hidden="false"
         style="position: absolute; right: 0; margin-right: 30px; cursor: pointer;">
@@ -53,6 +52,9 @@
       <div id="manage-classroom-students-view" *ngIf="currentView == 'MANAGE_CLASSROOM_STUDENTS'">
         <app-manage-classroom-students (gotoHomePage)="OnGotoAllPosts()"></app-manage-classroom-students>
       </div>
+      <div id="manage-classroom-instructors-view" *ngIf="currentView == 'MANAGE_CLASSROOM_INSTRUCTORS'">
+        <app-manage-classroom-instructors (gotoHomePage)="OnGotoAllPosts()"></app-manage-classroom-instructors>
+      </div>
     </div>
 
   </mat-sidenav-content>
@@ -60,6 +62,6 @@
 </mat-sidenav-container>
 
 <mat-menu #menu="matMenu">
-  <button mat-menu-item (click)="gotoManageCurrentChosenClassroom()">Manage MAT 102 Classroom</button>
-  <button mat-menu-item>Manage MAT 102 Instructors</button>
+  <button mat-menu-item (click)="gotoManageStudentsOfCurrentClassroom()">Manage MAT 102 Classroom</button>
+  <button mat-menu-item (click)="gotoManageInstructorsOfCurrentChosenClassroom()">Manage MAT 102 Instructors</button>
 </mat-menu>

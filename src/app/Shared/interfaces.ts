@@ -24,7 +24,7 @@ export interface DiscussionComment {
   dateTimePosted: string;
 }
 
-export interface SelectableStudent {
+export interface SelectableUser {
   userId: string;
   fullName: string;
   profilePicture: string;

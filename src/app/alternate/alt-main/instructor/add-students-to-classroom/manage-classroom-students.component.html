@@ -1,4 +1,4 @@
-<!--<div *ngFor="let e of selectedStudentIdsList" style="display: inline-block"><span>{{e}}</span></div>-->
+<!--<div *ngFor="let e of selectedUserIdsList" style="display: inline-block"><span>{{e}}</span></div>-->
 
 <div style="display: flex;">
 
@@ -24,7 +24,7 @@
   <div style="display: flex">
     <mat-card-header>
       <mat-card-title>Showing All Students</mat-card-title>
-      <mat-card-subtitle><b>Showing Grade 1</b></mat-card-subtitle>
+      <mat-card-subtitle><b>{{categoryName}}</b></mat-card-subtitle>
     </mat-card-header>
 
     <button
@@ -55,13 +55,13 @@
 
   <div>
     <mat-list>
-      <app-select-student-element
+      <app-select-user-element
         *ngFor="let student of selectableStudentList"
         [userId]="student.userId"
-        [studentName]="student.fullName"
+        [userName]="student.fullName"
         [isChecked]="student.selected"
-        [studentProfilePicture]="student.profilePicture">
-      </app-select-student-element>
+        [userProfilePicture]="student.profilePicture">
+      </app-select-user-element>
     </mat-list>
   </div>
 
