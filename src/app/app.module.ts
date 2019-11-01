@@ -18,11 +18,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {SignInComponent} from './pages/sign-in/sign-in.component';
-import { MainComponent } from './pages/main/main/main.component';
-import { LeftSidebarComponent } from './pages/main/left-sidebar/left-sidebar/left-sidebar.component';
-import { SingleGroupElementComponent } from './pages/main/left-sidebar/single-group-element/single-group-element.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
-import { CenterComponent } from './pages/main/center/center/center.component';
 import { SidebarComponent } from './alternate/sidebar/sidebar.component';
 import { AltMainComponent } from './alternate/alt-main/alt-main.component';
 import { SearchAndFiltersComponent } from './alternate/alt-main/search-and-filters/search-and-filters.component';
@@ -49,15 +45,13 @@ import { ManageClassroomInstructorsComponent } from './alternate/alt-main/instru
 import {ChosenUsersService} from './alternate/alt-main/instructor/chosen-users.service';
 // tslint:disable-next-line:max-line-length
 import {SelectUserElementComponent} from './alternate/alt-main/instructor/add-students-to-classroom/select-user-element/select-user-element.component';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignInComponent,
-    MainComponent,
-    LeftSidebarComponent,
-    SingleGroupElementComponent,
-    CenterComponent,
+    ResetPasswordComponent,
     SidebarComponent,
     AltMainComponent,
     SearchAndFiltersComponent,

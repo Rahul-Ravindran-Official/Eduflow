@@ -59,4 +59,8 @@ export class FeedElementComponent {
       duration: 1000,
     });
   }
+
+  hidePost() {
+    this.snackBarCreator('Post Has been hidden');
+  }
 }

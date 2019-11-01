@@ -1,8 +1,0 @@
-.mat-list-icon {
-  color: rgba(0, 0, 0, 0.54);
-}
-
-mat-list-item:hover {
-  cursor: pointer;
-  background: rgba(185, 184, 194, 0.48);
-}
