@@ -3,10 +3,10 @@ import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-alt-main',
-  templateUrl: './alt-main.component.html',
-  styleUrls: ['./alt-main.component.css']
+  templateUrl: './main.component.html',
+  styleUrls: ['./main.component.css']
 })
-export class AltMainComponent {
+export class MainComponent {
 
   // Sign In Step ?
   isSignedIn = false;

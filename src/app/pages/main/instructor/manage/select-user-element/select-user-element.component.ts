@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ChosenUsersService} from '../../chosen-users.service';
+import {ChosenUsersService} from '../../../../../Shared/chosen-users.service';
 
 @Component({
   selector: 'app-select-user-element',

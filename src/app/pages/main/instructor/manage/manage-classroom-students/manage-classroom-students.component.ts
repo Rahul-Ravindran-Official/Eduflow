@@ -1,8 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {CategoryGroup, SelectableUser} from '../../../../Shared/interfaces';
-import {ChosenStudentsService} from './chosen-students.service';
+import {CategoryGroup, SelectableUser} from '../../../../../Shared/interfaces';
 import {MatSnackBar} from '@angular/material';
-import {ChosenUsersService} from '../chosen-users.service';
+import {ChosenUsersService} from '../../../../../Shared/chosen-users.service';
 
 @Component({
   selector: 'app-manage-classroom-students',

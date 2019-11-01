@@ -17,10 +17,10 @@ import {
 import {MatSelectModule} from '@angular/material/select';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
-import {SignInComponent} from './pages/sign-in/sign-in.component';
+import {SignInComponent} from './pages/authentication/sign-in/sign-in.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { SidebarComponent } from './pages/sidebar/sidebar.component';
-import { AltMainComponent } from './pages/main/alt-main.component';
+import { MainComponent } from './pages/main/main/main.component';
 import { SearchAndFiltersComponent } from './pages/main/search-and-filters/search-and-filters.component';
 import { FeedComponent } from './pages/main/feed/feed/feed.component';
 import { FeedElementComponent } from './pages/main/feed/feed-element/feed-element.component';
@@ -37,15 +37,14 @@ import { DiscussionFeedComponent } from './pages/main/answer-feed/discussion-fee
 import { DiscussionElementComponent } from './pages/main/answer-feed/discussion-feed/discussion-element/discussion-element.component';
 import { CreateClassroomComponent } from './pages/main/instructor/create-classroom/create-classroom.component';
 // tslint:disable-next-line:max-line-length
-import { ManageClassroomStudentsComponent } from './pages/main/instructor/add-students-to-classroom/manage-classroom-students.component';
-import {ChosenStudentsService} from './pages/main/instructor/add-students-to-classroom/chosen-students.service';
+import { ManageClassroomStudentsComponent } from './pages/main/instructor/manage/manage-classroom-students/manage-classroom-students.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
 // tslint:disable-next-line:max-line-length
-import { ManageClassroomInstructorsComponent } from './pages/main/instructor/manage-classroom-instructors/manage-classroom-instructors.component';
-import {ChosenUsersService} from './pages/main/instructor/chosen-users.service';
+import { ManageClassroomInstructorsComponent } from './pages/main/instructor/manage/manage-classroom-instructors/manage-classroom-instructors.component';
+import {ChosenUsersService} from './Shared/chosen-users.service';
 // tslint:disable-next-line:max-line-length
-import {SelectUserElementComponent} from './pages/main/instructor/add-students-to-classroom/select-user-element/select-user-element.component';
-import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import {SelectUserElementComponent} from './pages/main/instructor/manage/select-user-element/select-user-element.component';
+import { ResetPasswordComponent } from './pages/authentication/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +52,7 @@ import { ResetPasswordComponent } from './pages/reset-password/reset-password.co
     SignInComponent,
     ResetPasswordComponent,
     SidebarComponent,
-    AltMainComponent,
+    MainComponent,
     SearchAndFiltersComponent,
     FeedComponent,
     FeedElementComponent,
@@ -97,7 +96,7 @@ import { ResetPasswordComponent } from './pages/reset-password/reset-password.co
     MatMenuModule,
     FlexLayoutModule
   ],
-  providers: [ChosenStudentsService, ChosenUsersService],
+  providers: [ChosenUsersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
