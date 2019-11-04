@@ -1,6 +1,6 @@
 <app-sign-in *ngIf="!isSignedIn" (successfullySignedIn)="onSuccessfullySignedIn()"></app-sign-in>
-<mat-sidenav-container *ngIf="isSignedIn" class="example-container" style="height: 720px">
-  <mat-sidenav mode="side" opened>
+<mat-sidenav-container *ngIf="isSignedIn" class="example-container" style="min-height: 100vh">
+  <mat-sidenav mode="side" opened class="side-bar-responsive-status">
     <app-sidebar
       (WantToCreateANewClass)="createNewClass()"
       (EnterClass)="enterClass($event)"

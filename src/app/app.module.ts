@@ -45,6 +45,8 @@ import {ChosenUsersService} from './Shared/chosen-users.service';
 // tslint:disable-next-line:max-line-length
 import {SelectUserElementComponent} from './pages/main/instructor/manage/select-user-element/select-user-element.component';
 import { ResetPasswordComponent } from './pages/authentication/reset-password/reset-password.component';
+import { ResponsiveDesignComponent } from './_playground/responsive-design/responsive-design.component';
+import {HttpModule} from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -67,8 +69,10 @@ import { ResetPasswordComponent } from './pages/authentication/reset-password/re
     ManageClassroomStudentsComponent,
     SelectUserElementComponent,
     ManageClassroomInstructorsComponent,
+    ResponsiveDesignComponent,
   ],
   imports: [
+    HttpModule,
     BrowserModule,
     BrowserAnimationsModule,
     MatCheckboxModule,

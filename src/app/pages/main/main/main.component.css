@@ -6,3 +6,9 @@
 #back-button{
   cursor: pointer;
 }
+
+@media only screen and (max-width: 375px) {
+  .side-bar-responsive-status {
+    display: none;
+  }
+}
