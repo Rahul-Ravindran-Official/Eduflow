@@ -10,7 +10,7 @@ export class DiscussionElementComponent implements OnInit {
 
 
   @Input() comment = 'This is a fantastic answer and I absolutely endorse this. There is so much to learn from this answer. Hats off to you, Gentleman.';
-  @Input() author = 'Rahul Ravindran';
+  @Input() author = 'Gopal Munapillai';
   @Input() dateTimePosted = '10 minutes ago';
 
   constructor() { }

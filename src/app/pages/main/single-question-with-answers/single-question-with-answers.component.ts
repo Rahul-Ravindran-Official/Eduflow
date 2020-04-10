@@ -19,20 +19,20 @@ export class SingleQuestionWithAnswersComponent {
   defaultAnonymityScope = '1';
   anonymityScope: Select[] = [
     {id: '0', viewValue: 'Anonymous'},
-    {id: '1', viewValue: 'Rahul Ravindran'},
+    {id: '1', viewValue: 'Gopal Munapillai'},
   ];
 
   constructor(private snackBar: MatSnackBar) {
     this.theQuestion = {
       postId: 1,
       upvoted: false,
-      author: 'Rahul Ravindran',
+      author: 'Aakash Palimula',
       lastActive: '8 hours ago',
       profilePictureUrl: '',
-      question: 'Why is the Sun yellow?',
+      question: 'Friends, Today teacher told us that if i travel by train, even if i am sitting, that i am moving with respect to a stationary pole. Can someone please help me understand?',
       replyCount: 20,
-      tag: 'Geo Quiz 2',
-      upvoteCount: 38487,
+      tag: 'Class 9 - Physics',
+      upvoteCount: 14,
       flagged: false
     };
 

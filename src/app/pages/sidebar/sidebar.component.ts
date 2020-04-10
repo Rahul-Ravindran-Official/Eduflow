@@ -15,16 +15,16 @@ export class SidebarComponent {
 
   classes: AClass[] = [
     {
-      name: 'MAT 102',
-      lastActivity: new Date('1/1/16'),
+      name: '9th Grade Physics',
+      lastActivity: new Date('4/6/20'),
     },
     {
-      name: 'CSC 108',
-      lastActivity: new Date('1/17/16'),
+      name: '9th Grade French',
+      lastActivity: new Date('4/6/20'),
     },
     {
-      name: 'MAT 135',
-      lastActivity: new Date('1/28/16'),
+      name: '9th Grade History',
+      lastActivity: new Date('4/5/20'),
     }
   ];
 

@@ -33,7 +33,7 @@ export class PostQuestionComponent {
   defaultAnonymityScope = '1';
   anonymityScope: Select[] = [
     {id: '0', viewValue: 'Anonymous'},
-    {id: '1', viewValue: 'Rahul Ravindran'},
+    {id: '1', viewValue: 'Gopal Munapillai'},
   ];
 
   defaultGroup = '1';

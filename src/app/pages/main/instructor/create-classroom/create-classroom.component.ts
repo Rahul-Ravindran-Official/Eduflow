@@ -28,12 +28,12 @@ export class CreateClassroomComponent implements OnInit {
 
   createNewClass(classname: string, classId: string, classDescription: string) {
 
-    if ((classname.length === 0) || classDescription.length === 0) {
-      this.showSnackbarMessage(
-        'Please fill in both class name and class description'
-      );
-      return;
-    }
+    // if ((classname.length === 0) || classDescription.length === 0) {
+    //   this.showSnackbarMessage(
+    //     'Please fill in both class name and class description'
+    //   );
+    //   return;
+    // }
 
     this.apiCall(classname, classId, classDescription);
   }

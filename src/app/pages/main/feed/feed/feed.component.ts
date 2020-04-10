@@ -27,10 +27,10 @@ export class FeedComponent {
     {
       postId: 1,
       upvoted: false,
-      author: 'Rahul Ravindran',
+      author: 'Gopal Munapillai',
       lastActive: '8 hours ago',
       profilePictureUrl: '',
-      question: 'Why is the Sun yellow?',
+      question: 'Friends, Today teacher told us that if i travel by train, even if i am sitting, that i am moving with respect to a stationary pole. Can someone please help me understand? ',
       replyCount: 20,
       tag: 'Geo Quiz 2',
       upvoteCount: 38487,
@@ -39,7 +39,7 @@ export class FeedComponent {
     {
       postId: 2,
       upvoted: true,
-      author: 'Lena Fawaz Mohammad',
+      author: 'Priya Nandyala',
       lastActive: 'A few minutes ago',
       profilePictureUrl: '',
       question: 'I just want to clarify, if I want to solve the questions using the ' +

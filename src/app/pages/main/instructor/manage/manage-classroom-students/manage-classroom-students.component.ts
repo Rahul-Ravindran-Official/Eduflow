@@ -1,7 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {CategoryGroup, SelectableUser} from '../../../../../Shared/interfaces';
+import {CategoryGroup, SelectableUser, Student} from '../../../../../Shared/interfaces';
 import {MatSnackBar} from '@angular/material';
 import {ChosenUsersService} from '../../../../../Shared/chosen-users.service';
+import {Subscription} from 'rxjs';
+import {ApiManagerService} from '../../../../../Shared/api-manager.service';
+import {StudentClassroomManagementGetDataModal} from '../../../../../Modals/StudentClassroomManagement/StudentClassroomManagementGetDataModal';
 
 @Component({
   selector: 'app-manage-classroom-students',
@@ -9,22 +12,98 @@ import {ChosenUsersService} from '../../../../../Shared/chosen-users.service';
   styleUrls: ['./manage-classroom-students.component.css']
 })
 export class ManageClassroomStudentsComponent implements OnInit {
+
+  private apiCallSubscription: Subscription;
+
   @Input() classroomId: string;
   @Output() gotoHomePage = new EventEmitter();
   categoryName = 'Category not yet selected';
-  allStudentNames: string[];
   currentCategoryId = '-2';
-  categoryGroups: CategoryGroup[];
+  categoryGroups: CategoryGroup[] = [];
   selectableStudentList: SelectableUser[];
   selectedStudentIdsList: string[];
-
-  constructor(private chosenStudents: ChosenUsersService, private snackBar: MatSnackBar) { }
+  availableStudents: Student[] = [];
+  constructor(private chosenStudents: ChosenUsersService,
+              private snackBar: MatSnackBar,
+              private apiManagerService: ApiManagerService) { }
 
   ngOnInit() {
-    this.categoryGroups = this.getStudentCategories();
     this.chosenStudents.currentList.subscribe(updatedChosenStudentList => this.onStudentChosenChanged(updatedChosenStudentList));
-    this.allStudentNames = this.getAllStudentNames();
     this.onInitUpdateExistingStudentsToChosenStudentsService();
+    this.getDataFromApiListenerAndPoster();
+  }
+
+  getDataFromApiListenerAndPoster() {
+
+    const api = this.apiManagerService.getManageClassroomData;
+    const studentClassroomManagementGetData: StudentClassroomManagementGetDataModal = new StudentClassroomManagementGetDataModal(
+      '1',
+      '1'
+    );
+    this.apiManagerService.sendBControllerPostRequest(
+      ManageClassroomStudentsComponent.name + '#GET',
+      api,
+      studentClassroomManagementGetData
+    );
+
+    this.apiCallSubscription = this.apiManagerService.onCallbackReceived.subscribe(
+      (callback) => {
+
+        if (callback.topic === (ManageClassroomStudentsComponent.name + '#GET')) {
+          this.getDataFromApiReceived(callback.data);
+        }
+
+        if (callback.topic === (ManageClassroomStudentsComponent.name + '#POST')) {
+          this.getDataFromApiReceived(callback.data);
+        }
+      }
+    );
+  }
+
+  private getDataFromApiReceived(data: any) {
+
+    for (const row of data.response.result[0].result) {
+      this.categoryGroups.push({
+        categoryGroupID: row.organizational_category_group_id,
+        categoryGroupName: row.organizational_category_group_name,
+        category: []
+      });
+    }
+
+    for (const row of data.response.result[1].result) {
+      const indexOfParentCategoryGroup = this.getIndexOfCategoryGroupByCategoryGroupId(
+        row.organizational_category_group_id,
+        this.categoryGroups
+      );
+      this.categoryGroups[indexOfParentCategoryGroup].category.push({
+        categoryId: row.organizational_category_id,
+        categoryName: row.organizational_category_name
+      });
+    }
+
+    for (const row of data.response.result[2].result) {
+      this.availableStudents.push({
+        firstName: row.first_name,
+        lastName: row.last_name,
+        userId: row.user_id,
+        organizational_category_id: row.organizational_category_id,
+        group_id: row.group_id,
+        permanent_ban: row.permanent_ban,
+        temporary_ban: row.temporary_ban
+      });
+    }
+
+  }
+
+  getIndexOfCategoryGroupByCategoryGroupId(searchElement: string, categoryGroups: CategoryGroup[]) {
+    let index = -1;
+    for (const categoryGroup of categoryGroups) {
+      index += 1;
+      if (categoryGroup.categoryGroupID === searchElement) {
+        return index;
+      }
+    }
+    return -1;
   }
 
   onStudentChosenChanged(updatedChosenStudentList: string[]) {
@@ -35,81 +114,18 @@ export class ManageClassroomStudentsComponent implements OnInit {
     this.currentCategoryId = categoryId;
     this.selectableStudentList = this.getStudentsByCategory(categoryId);
     this.categoryGroups.forEach( categoryGroup => {
-        categoryGroup.category.forEach( singleCategory => {
-          if (singleCategory.categoryId === categoryId) {
-            this.categoryName = 'Showing ' + singleCategory.categoryName;
-            return;
-          }
-        });
+      categoryGroup.category.forEach( singleCategory => {
+        if (singleCategory.categoryId === categoryId) {
+          this.categoryName = 'Showing ' + singleCategory.categoryName;
+          return;
+        }
+      });
     });
   }
 
-  getStudentCategories() {
-    // TODO API CALL HERE
-    const categoryGroups: CategoryGroup[] = [];
-    categoryGroups[0] = {
-        categoryGroupID: '1',
-        categoryGroupName: 'MYP',
-        category: [
-            {
-              categoryId: '1',
-              categoryName: 'Grade 5'
-            },
-            {
-              categoryId: '2',
-              categoryName: 'Grade 6'
-            },
-            {
-              categoryId: '3',
-              categoryName: 'Grade 7'
-            },
-            {
-              categoryId: '4',
-              categoryName: 'Grade 8'
-            }
-          ]
-      };
-    categoryGroups[1] = {
-        categoryGroupID: '2',
-        categoryGroupName: 'IGCSE',
-        category: [
-            {
-              categoryId: '5',
-              categoryName: 'Grade 9'
-            },
-            {
-              categoryId: '6',
-              categoryName: 'Grade 10'
-            }
-          ]
-      };
-    categoryGroups[2] = {
-        categoryGroupID: '3',
-        categoryGroupName: 'IB',
-        category: [
-            {
-              categoryId: '7',
-              categoryName: 'Grade 11'
-            },
-            {
-              categoryId: '8',
-              categoryName: 'Grade 12'
-            }
-          ]
-      };
-    return categoryGroups;
-  }
-
-  getAllStudentNames() {
-    const allElements: string[] = [];
-    for (const element of this.getStudentsByCategory('-1')) {
-      allElements.push(element.fullName);
-    }
-    return allElements;
-  }
-
   getStudentsByCategory(categoryId: string) {
-    console.log(categoryId);
+    const selectableStudent: SelectableUser[] = [];
+
     if (categoryId === '-2') {
       this.snackBarCreator('Choose a category first.');
       return;
@@ -117,35 +133,39 @@ export class ManageClassroomStudentsComponent implements OnInit {
 
     if (categoryId === '-1') {
       // Returning all students
+      for (const student of this.availableStudents) {
+        let isSelected = false;
+        if (student.group_id !== '-1') {
+          isSelected = true;
+        }
+        if (student.temporary_ban === '0' && student.permanent_ban === '0') {
+          selectableStudent.push({
+            selected: isSelected,
+            userId: student.userId,
+            fullName: student.firstName + ' ' + student.lastName,
+            profilePicture: 'https://material.angular.io/assets/img/examples/shiba1.jpg'
+          });
+        }
+      }
+      return selectableStudent;
     }
 
-    // TODO API CALL here and dynamic programming for efficiency. Highly inefficient now.
-    const selectableStudent: SelectableUser[] = [];
-    selectableStudent[0] = {
-          userId: '1',
-          fullName: 'Iron Man',
-          profilePicture: 'https://material.angular.io/assets/img/examples/shiba1.jpg',
-          selected: false
-    };
-    selectableStudent[1] = {
-          userId: '2',
-          fullName: 'Captain Marvel',
-          profilePicture: 'https://material.angular.io/assets/img/examples/shiba1.jpg',
-          selected: true
-    };
-    selectableStudent[2] = {
-          userId: '3',
-          fullName: 'Spiderman',
-          profilePicture: 'https://material.angular.io/assets/img/examples/shiba1.jpg',
-          selected: false
-    };
-    selectableStudent[3] = {
-          userId: '4',
-          fullName: 'Black Widow',
-          profilePicture: 'https://material.angular.io/assets/img/examples/shiba1.jpg',
-          selected: false
-    };
-
+    for (const student of this.availableStudents) {
+      if (student.organizational_category_id === categoryId) {
+        let isSelected = false;
+        if (student.group_id !== '-1') {
+          isSelected = true;
+        }
+        if (student.temporary_ban === '0' && student.permanent_ban === '0') {
+          selectableStudent.push({
+            selected: isSelected,
+            userId: student.userId,
+            fullName: student.firstName + ' ' + student.lastName,
+            profilePicture: 'https://material.angular.io/assets/img/examples/shiba1.jpg'
+          });
+        }
+      }
+    }
     return selectableStudent;
   }
 
@@ -158,8 +178,6 @@ export class ManageClassroomStudentsComponent implements OnInit {
       }
     }
   }
-
-
 
   selectAllStudentsOfCurrentCategoryId() {
     const selectableStudent: SelectableUser[] = this.getStudentsByCategory(this.currentCategoryId);
@@ -184,29 +202,10 @@ export class ManageClassroomStudentsComponent implements OnInit {
     this.gotoHomePage.emit();
   }
 
-  makeString(length) {
-    let result           = '';
-    const characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    const charactersLength = characters.length;
-    for ( let i = 0; i < length; i++ ) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
-  }
-
-  makeId(length) {
-    let result           = '';
-    const characters       = '0123456789';
-    const charactersLength = characters.length;
-    for ( let i = 0; i < length; i++ ) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
-  }
-
   snackBarCreator(message: string) {
     this.snackBar.open(message, 'Close', {
       duration: 1000,
     });
   }
+
 }

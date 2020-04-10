@@ -41,3 +41,13 @@ export interface Category {
   categoryId: string;
   categoryName: string;
 }
+
+export interface Student {
+  firstName: string;
+  lastName: string;
+  userId: string;
+  organizational_category_id: string;
+  permanent_ban: string;
+  temporary_ban: string;
+  group_id: string;
+}
