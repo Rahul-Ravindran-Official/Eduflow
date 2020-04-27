@@ -1,0 +1,70 @@
+<!--<div *ngFor="let e of selectedUserIdsList" style="display: inline-block"><span>{{e}}</span></div>-->
+
+<div style="display: flex;">
+
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>Instructor's Dashboard</mat-card-title>
+      <mat-card-subtitle>This Dashboard helps manage instructors.</mat-card-subtitle>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+
+    <div id="classes">
+      <mat-list *ngFor="let categoryGroup of categoryGroups">
+        <h3 mat-subheader>{{categoryGroup.categoryGroupName}}</h3>
+        <mat-list-item *ngFor="let singleCategory of categoryGroup.category" (click)="selectCategory(singleCategory.categoryId)" matRipple style="margin-left: 10px;height: 30px; padding: 10px;">
+          <h4 mat-line>{{singleCategory.categoryName}}</h4>
+        </mat-list-item>
+      </mat-list>
+    </div>
+  </mat-card>
+
+  <mat-card style="width: 600px; margin-left: 30px">
+    <div style="display: flex">
+      <mat-card-header>
+        <mat-card-title>Showing All Instructor</mat-card-title>
+        <mat-card-subtitle><b>{{categoryName}}</b></mat-card-subtitle>
+      </mat-card-header>
+
+      <button
+        (click)="selectAllInstructorsOfCurrentCategoryId()"
+        mat-flat-button
+        class="main-button"
+        style="margin-left: 15px; height: 45px; float: right">
+        Select All
+      </button>
+      <button
+        (click)="unselectInstructorsOfCurrentGroupId()"
+        autofocus
+        mat-flat-button
+        class="main-button"
+        style="margin-left: 15px; height: 45px; float: right">
+        Select None
+      </button>
+      <button
+        (click)="updateSelectedInstructors()"
+        autofocus
+        mat-flat-button
+        class="main-button"
+        style="margin-left: 15px; height: 45px; float: right">
+        Finalize
+      </button>
+    </div>
+    <mat-divider></mat-divider>
+
+    <div>
+      <mat-list>
+        <app-select-user-element
+          *ngFor="let instructor of selectableInstructorList"
+          [userId]="instructor.userId"
+          [userName]="instructor.fullName"
+          [isChecked]="instructor.selected"
+          [userProfilePicture]="instructor.profilePicture">
+        </app-select-user-element>
+      </mat-list>
+    </div>
+
+  </mat-card>
+
+</div>
